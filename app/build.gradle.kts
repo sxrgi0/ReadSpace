@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.readspace"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.readspace"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -33,9 +33,21 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
+    val version = "2.11.0"
+
+    //Retrofit & Gson Converter
+    implementation("com.squareup.retrofit2:retrofit:$version")
+    implementation("com.squareup.retrofit2:converter-gson:$version")
+
+    //Picasso
+    implementation("com.squareup.picasso:picasso:2.8")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
