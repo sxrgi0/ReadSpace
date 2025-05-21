@@ -18,7 +18,7 @@ data class VolumeInfo(
     val pageCount: Int,
     val categories: List<String>?,
     val imageLinks: ImageLinks?,
-    val averageRating: Int?
+    val averageRating: Float?
 )
 
 data class ImageLinks(

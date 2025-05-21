@@ -49,23 +49,16 @@ class BookViewHolder(val binding : ItemBookBinding) : ViewHolder(binding.root){
             binding.dateTextView.text = "Unknown"
         }
 
-
-
         if(book.volumeInfo.authors != null){
             binding.authorTextView.text = book.volumeInfo.authors?.joinToString(", ")
         } else{
             binding.authorTextView.text = "Unknown author"
         }
 
-        if (book.volumeInfo.imageLinks != null) {
-            Picasso.get().load(book.volumeInfo.imageLinks.thumbnail.replace("http://", "https://"))
-                .into(binding.coverImageView)
+        Picasso.get().load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
+            .placeholder(R.drawable.ic_image_error)
+            .into(binding.coverImageView)
 
-        } else {
-            binding.coverImageView.setImageResource(R.drawable.ic_image_error)
-            binding.coverImageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-
-        }
     }
 
 }
