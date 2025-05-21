@@ -39,7 +39,7 @@ data class BookEntity(
     companion object{
         const val TABLE_NAME = "Books"
         const val COLUMN_NAME_ID = "id"
-        const val COLUMN_NAME_APIID = "id"
+        const val COLUMN_NAME_APIID = "apiid"
         const val COLUMN_NAME_TITLE = "title"
         const val COLUMN_NAME_AUTHORS = "authors"
         const val COLUMN_NAME_THUMBNAIL = "thumbnail"

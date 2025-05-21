@@ -10,6 +10,7 @@ class BookDAO(private val context: Context) {
 
     private lateinit var db: SQLiteDatabase
 
+
     private fun open() {
         db = DatabaseManager(context).writableDatabase
     }
@@ -18,16 +19,17 @@ class BookDAO(private val context: Context) {
         db.close()
     }
 
+
     // Insertar
-    fun insert(book: Book, bookEntity: BookEntity) {
+    fun insert(bookEntity: BookEntity) {
         open()
 
         try {// Create a new map of values, where column names are the keys
             val values = ContentValues().apply {
-                put(BookEntity.COLUMN_NAME_APIID, book.apiId)
-                put(BookEntity.COLUMN_NAME_TITLE, book.volumeInfo.title)
-                put(BookEntity.COLUMN_NAME_AUTHORS, book.volumeInfo.authors?.joinToString(", "))
-                put(BookEntity.COLUMN_NAME_THUMBNAIL, book.volumeInfo.imageLinks?.thumbnail)
+                put(BookEntity.COLUMN_NAME_APIID, bookEntity.apiId)
+                put(BookEntity.COLUMN_NAME_TITLE, bookEntity.title)
+                put(BookEntity.COLUMN_NAME_AUTHORS, bookEntity.authors)
+                put(BookEntity.COLUMN_NAME_THUMBNAIL, bookEntity.thumbnail)
                 put(BookEntity.COLUMN_NAME_STATUS, bookEntity.status)
             }
 
@@ -44,15 +46,15 @@ class BookDAO(private val context: Context) {
 
     // Actualizar
 
-    fun update(book: Book, bookEntity: BookEntity) {
+    fun update(bookEntity: BookEntity) {
         open()
 
         try {// Create a new map of values, where column names are the keys
             val values = ContentValues().apply {
-                put(BookEntity.COLUMN_NAME_APIID, book.apiId)
-                put(BookEntity.COLUMN_NAME_TITLE, book.volumeInfo.title)
-                put(BookEntity.COLUMN_NAME_AUTHORS, book.volumeInfo.authors?.joinToString(", "))
-                put(BookEntity.COLUMN_NAME_THUMBNAIL, book.volumeInfo.imageLinks?.thumbnail)
+                put(BookEntity.COLUMN_NAME_APIID, bookEntity.apiId)
+                put(BookEntity.COLUMN_NAME_TITLE, bookEntity.title)
+                put(BookEntity.COLUMN_NAME_AUTHORS, bookEntity.authors)
+                    put(BookEntity.COLUMN_NAME_THUMBNAIL, bookEntity.authors)
                 put(BookEntity.COLUMN_NAME_STATUS, bookEntity.status)
             }
 
@@ -70,7 +72,7 @@ class BookDAO(private val context: Context) {
     }
 
     // Borrar
-    fun delete(book: Book, bookEntity: BookEntity) {
+    fun delete(bookEntity: BookEntity) {
         open()
 
         try {// Define 'where' part of query.
@@ -88,7 +90,7 @@ class BookDAO(private val context: Context) {
     }
 
     // Obtener un registro por ID
-    fun findById(id: Log): BookEntity? {
+    fun findById(id: Long): BookEntity? {
         open()
 
         var bookEntity: BookEntity? = null
@@ -105,7 +107,7 @@ class BookDAO(private val context: Context) {
             )
 
             // Filter results WHERE "id" = 'bookEntity.id'
-            val selection = "${BookEntity.COLUMN_NAME_TITLE} = $id"
+            val selection = "${BookEntity.COLUMN_NAME_ID} = $id"
 
             val cursor = db.query(
                 BookEntity.TABLE_NAME,   // The table to query
@@ -188,5 +190,17 @@ class BookDAO(private val context: Context) {
         }
 
         return bookList
+    }
+
+    // Mapear los valores recogidos del API en los del objeto BookEntity de la base de datos
+    fun bookToEntity(book: Book, status: String) : BookEntity{
+        return BookEntity(
+            id = -1L,
+            apiId = book.apiId,
+            title = book.volumeInfo.title,
+            authors = book.volumeInfo.authors?.joinToString(", ") ?: "Unknown",
+            thumbnail = book.volumeInfo.imageLinks?.thumbnail,
+            status = status
+        )
     }
 }
