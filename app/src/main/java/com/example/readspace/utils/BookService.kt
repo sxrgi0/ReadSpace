@@ -1,5 +1,6 @@
-package com.example.readspace
+package com.example.readspace.utils
 
+import com.example.readspace.data.BookSearchResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET

@@ -1,10 +1,11 @@
-package com.example.readspace
+package com.example.readspace.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.readspace.R
+import com.example.readspace.data.Book
 import com.example.readspace.databinding.ItemBookBinding
 import com.squareup.picasso.Picasso
 
