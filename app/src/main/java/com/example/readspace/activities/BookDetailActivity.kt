@@ -1,15 +1,22 @@
 package com.example.readspace.activities
 
+import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.text.Html
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import com.example.readspace.R
 import com.example.readspace.data.Book
+import com.example.readspace.data.BookDAO
+import com.example.readspace.data.BookEntity
 import com.example.readspace.databinding.ActivityBookDetailBinding
 import com.example.readspace.utils.BookService
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +31,11 @@ class BookDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityBookDetailBinding
 
     lateinit var book: Book
+    var bookEntity: BookEntity? = null
+
+    //lateinit var status: String
+
+    lateinit var bookDAO: BookDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +49,18 @@ class BookDetailActivity : AppCompatActivity() {
             insets
         }
 
+        bookDAO = BookDAO(this)
+
         val id = intent.getStringExtra(BOOK_ID)!!
         getBookId(id)
+
+        bookEntity = bookDAO.findByApiId(id)
+
+        loadStatus()
+
+        binding.statusButton.setOnClickListener {
+            showSaveStatus()
+        }
 
     }
 
@@ -89,4 +111,61 @@ class BookDetailActivity : AppCompatActivity() {
             binding.descriptionTextView.text = "No data"
         }
     }
+
+    fun loadStatus() {
+        if (bookEntity == null) {
+            binding.statusChip.isVisible = false
+        } else {
+            binding.statusChip.isVisible = true
+            binding.statusChip.text = bookEntity!!.status
+        }
+    }
+
+    fun showSaveStatus(){
+        val items = arrayOf("Want to read", "Reading", "Finished", "Not finished")
+
+        var checkedItems = if (bookEntity == null) {
+            -1
+        } else {
+            items.indexOf(bookEntity!!.status)
+        }
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Add to your library")
+            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                var status = ""
+                when(checkedItems){
+                    2->{
+                        // Añadir el libro a Finished en la base de datos
+                        status = "Finished"
+                        binding.ratingBar.isVisible = true
+                    }
+                    else -> status = items[checkedItems]
+
+                }
+
+                if (bookEntity != null) {
+                    bookEntity!!.status = status
+                    bookDAO.update(bookEntity!!)
+                } else {
+                    bookEntity = BookEntity(-1, book.apiId, book.volumeInfo.title, book.getAuthors(), book.volumeInfo.imageLinks?.thumbnail, status)
+                    bookDAO.insert(bookEntity!!)
+                }
+
+                loadStatus()
+
+                Snackbar.make(binding.main, "Book saved. Find it in your library!", Snackbar.LENGTH_SHORT).show()
+
+            }
+            .setSingleChoiceItems(items, checkedItems){_, selectedItemIndex ->
+
+                checkedItems = selectedItemIndex
+
+            }
+            .setCancelable(false)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setIcon(R.drawable.ic_library_add)
+            .show()
+    }
+
 }

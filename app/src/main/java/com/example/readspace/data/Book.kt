@@ -8,7 +8,11 @@ data class BookSearchResponse(val items: List<Book>)
 data class Book(
     @SerializedName("id")val apiId: String,
     val volumeInfo: VolumeInfo
-)
+) {
+    fun getAuthors(): String {
+        return volumeInfo.authors?.joinToString(", ") ?: "Anónimo"
+    }
+}
 
 data class VolumeInfo(
     val title: String,
@@ -34,7 +38,7 @@ data class BookEntity(
     val title: String,
     val authors: String,
     val thumbnail: String?,
-    val status: String
+    var status: String
 ) {
     companion object{
         const val TABLE_NAME = "Books"

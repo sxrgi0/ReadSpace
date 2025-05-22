@@ -27,6 +27,17 @@
                 android:layout_height="300dp"
                 android:scaleType="centerCrop" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/statusChip"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                app:chipIcon="@drawable/ic_library_add"
+                app:ensureMinTouchTargetSize="true"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="8dp"/>
+
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -64,7 +75,8 @@
             android:layout_gravity="center_horizontal"
             android:stepSize="0.5"
             android:scrollbarSize="120dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/statusButton"

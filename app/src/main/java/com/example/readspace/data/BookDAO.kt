@@ -36,7 +36,7 @@ class BookDAO(private val context: Context) {
             // Insert the new row, returning the primary key value of the new row
             val newRowId = db.insert(BookEntity.TABLE_NAME, null, values)
 
-            Log.i("DATABASE", "Inserted a category with id: $newRowId")
+            Log.i("DATABASE", "Inserted a book with id: $newRowId")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -63,7 +63,7 @@ class BookDAO(private val context: Context) {
 
             val count = db.update(BookEntity.TABLE_NAME, values, selection, null)
 
-            Log.i("DATABASE", "Updated category with id: ${bookEntity.id}")
+            Log.i("DATABASE", "Updated book with id: ${bookEntity.id}")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -81,7 +81,7 @@ class BookDAO(private val context: Context) {
             // Issue SQL statement.
             val deletedRows = db.delete(BookEntity.TABLE_NAME, selection, null)
 
-            Log.i("DATABASE", "Deleted category with id: ${bookEntity.id}")
+            Log.i("DATABASE", "Deleted book with id: ${bookEntity.id}")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -108,6 +108,57 @@ class BookDAO(private val context: Context) {
 
             // Filter results WHERE "id" = 'bookEntity.id'
             val selection = "${BookEntity.COLUMN_NAME_ID} = $id"
+
+            val cursor = db.query(
+                BookEntity.TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                null,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+            )
+
+            if (cursor.moveToNext()) {
+                val id = cursor.getLong(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_ID))
+                val apiId = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_APIID))
+                val title = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_TITLE))
+                val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
+                val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
+                val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+
+                bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status)
+            }
+
+            cursor.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            close()
+        }
+
+        return bookEntity
+    }
+
+    // Obtener un registro por ID
+    fun findByApiId(id: String): BookEntity? {
+        open()
+
+        var bookEntity: BookEntity? = null
+
+        try {// Define a projection that specifies which columns from the database
+            // you will actually use after this query.
+            val projection = arrayOf(
+                BookEntity.COLUMN_NAME_ID,
+                BookEntity.COLUMN_NAME_APIID,
+                BookEntity.COLUMN_NAME_TITLE,
+                BookEntity.COLUMN_NAME_AUTHORS,
+                BookEntity.COLUMN_NAME_THUMBNAIL,
+                BookEntity.COLUMN_NAME_STATUS
+            )
+
+            // Filter results WHERE "id" = 'bookEntity.id'
+            val selection = "${BookEntity.COLUMN_NAME_APIID} = '$id'"
 
             val cursor = db.query(
                 BookEntity.TABLE_NAME,   // The table to query
