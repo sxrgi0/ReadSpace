@@ -1,103 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/coverImageView"
-        android:layout_width="80dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_image_error"/>
-
-    <LinearLayout
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_marginStart="8dp">
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
 
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Book Title"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
+        <ImageView
+            android:id="@+id/coverImageView"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_image_error" />
 
-        <TextView
-            android:id="@+id/authorTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Book Author"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
-            android:textSize="12sp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Published in:"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
-                android:textSize="10sp"/>
-
-            <TextView
-                android:id="@+id/dateTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                tools:text="Date"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
-                android:textSize="10sp"
-                android:layout_marginStart="4dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pages:"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
-                android:textSize="10sp"/>
-
-            <TextView
-                android:id="@+id/pagesTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                tools:text="Pages"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
-                android:textSize="10sp"
-                android:layout_marginStart="4dp"/>
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

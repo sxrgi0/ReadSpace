@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.readspace.data.Book
 import com.example.readspace.adapters.BookAdapter
 import com.example.readspace.utils.BookService
@@ -20,7 +22,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    lateinit var adapter: BookAdapter
+    lateinit var adapterFiction: BookAdapter
+    lateinit var adapterFantasy: BookAdapter
+    lateinit var adapterRomance: BookAdapter
 
     var bookList: List<Book> = emptyList()
 
@@ -36,18 +40,21 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        adapter = BookAdapter(bookList) {
-            val book = bookList[it]
+//        adapter = BookAdapter(bookList) {
+//            val book = bookList[it]
+//
+//            val intent = Intent(this, BookDetailActivity::class.java)
+//            intent.putExtra(BookDetailActivity.BOOK_ID, book.apiId)
+//            startActivity(intent)
+//        }
 
-            val intent = Intent(this, BookDetailActivity::class.java)
-            intent.putExtra(BookDetailActivity.BOOK_ID, book.apiId)
-            startActivity(intent)
-        }
+        binding.recyclerView.adapter = adapterFiction
+        binding.recyclerView2.adapter = adapterFantasy
+        binding.recyclerView3.adapter = adapterRomance
+        binding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.recyclerView2.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.recyclerView3.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = GridLayoutManager(this,1)
-
-        searchBook("The")
     }
 
     fun searchBook(query: String){
@@ -59,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 bookList = response.items
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    adapter.updateItems(bookList)
+                    //adapter.updateItems(bookList)
                 }
             }
         } catch (e: Exception) {
