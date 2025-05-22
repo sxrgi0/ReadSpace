@@ -1,5 +1,6 @@
 package com.example.readspace.utils
 
+import com.example.readspace.data.Book
 import com.example.readspace.data.BookSearchResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,7 +21,7 @@ interface BookService {
     suspend fun findBookbyId(
         @Path("id") id: String,
         @Query("key") apiKey: String = "AIzaSyA0XN-NMA5ffvG-1pooFfvGPNkyN7eVsJM"
-    )
+    ) :Book
 
 
 

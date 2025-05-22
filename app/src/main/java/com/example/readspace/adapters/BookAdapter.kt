@@ -47,7 +47,7 @@ class BookViewHolder(val binding : ItemBookBinding) : ViewHolder(binding.root){
         if(book.volumeInfo.pageCount != 0){
             binding.pagesTextView.text = book.volumeInfo.pageCount.toString()
         } else {
-            binding.dateTextView.text = "Unknown"
+            binding.pagesTextView.text = "Unknown"
         }
 
         if(book.volumeInfo.authors != null){

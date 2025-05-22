@@ -1,5 +1,6 @@
 package com.example.readspace.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         adapter = BookAdapter(bookList) {
             val book = bookList[it]
+
+            val intent = Intent(this, BookDetailActivity::class.java)
+            intent.putExtra(BookDetailActivity.BOOK_ID, book.apiId)
+            startActivity(intent)
         }
 
         binding.recyclerView.adapter = adapter
