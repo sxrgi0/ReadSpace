@@ -83,8 +83,31 @@ class BookDetailViewHolder(val binding: ItemBookDetailBinding) : ViewHolder(bind
 
     fun render(book: Book) {
 
-        binding.titleTextView.text = book.volumeInfo.title
-        binding.authorsTextView.text = book.getAuthors()
+        if(book.volumeInfo.description != null){
+            binding.descriptionTextView.text = book.volumeInfo.description
+        } else{
+            binding.descriptionTextView.text = "No description"
+        }
+
+        if(book.volumeInfo.title != null){
+            binding.titleTextView.text = book.volumeInfo.title
+        } else{
+            binding.titleTextView.text = "No data"
+        }
+
+        if(book.volumeInfo.authors != null){
+            binding.authorsTextView.text = book.getAuthors()
+        } else{
+            binding.authorsTextView.text = "Unknown"
+        }
+
+        if (book.volumeInfo.averageRating != null){
+            binding.ratingBar.rating = book.volumeInfo.averageRating
+            binding.ratingTextView.text = "${book.volumeInfo.averageRating}/5"
+        } else {
+            binding.ratingBar.rating = 0F
+            binding.ratingTextView.text = "0/5"
+        }
 
         if (book.volumeInfo.imageLinks?.thumbnail != null) {
             Picasso.get()

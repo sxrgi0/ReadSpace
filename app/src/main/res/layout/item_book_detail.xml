@@ -36,17 +36,61 @@
                     android:id="@+id/titleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Book name"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
+                    tools:text="Book name"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    android:maxLines="2"/>
 
                 <TextView
                     android:id="@+id/authorsTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Authors"/>
+                    tools:text="Authors"
+                    android:maxLines="2"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:isIndicator="true"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/ratingTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rating"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"/>
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="1"
+                        android:isIndicator="true"
+                        android:rating="1"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/descriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Description"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                    android:textSize="11dp"
+                    android:maxLines="3"/>
 
             </LinearLayout>
-
 
         </LinearLayout>
 
