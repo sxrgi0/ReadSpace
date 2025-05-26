@@ -4,19 +4,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        android:layout_margin="16dp">
 
         <ImageView
             android:id="@+id/coverImageView"
             android:layout_width="80dp"
             android:layout_height="120dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_image_error" />
 
     </androidx.cardview.widget.CardView>
