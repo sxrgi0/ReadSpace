@@ -22,11 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    lateinit var adapterFiction: BookAdapter
-    lateinit var adapterFantasy: BookAdapter
-    lateinit var adapterRomance: BookAdapter
-
-    var bookList: List<Book> = emptyList()
+    val bookAdapterList = listOf(
+        BookAdapter(emptyList()) { position -> onBookClicked(position, 0)},
+        BookAdapter(emptyList()) { position -> onBookClicked(position, 1)},
+        BookAdapter(emptyList()) { position -> onBookClicked(position, 2)},
+        BookAdapter(emptyList()) { position -> onBookClicked(position, 3)},
+        BookAdapter(emptyList()) { position -> onBookClicked(position, 4)},
+        BookAdapter(emptyList()) { position -> onBookClicked(position, 5)},
+        BookAdapter(emptyList()) { position -> onBookClicked(position, 6)}
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,37 +44,52 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-//        adapter = BookAdapter(bookList) {
-//            val book = bookList[it]
-//
-//            val intent = Intent(this, BookDetailActivity::class.java)
-//            intent.putExtra(BookDetailActivity.BOOK_ID, book.apiId)
-//            startActivity(intent)
-//        }
-
-        binding.recyclerView.adapter = adapterFiction
-        binding.recyclerView2.adapter = adapterFantasy
-        binding.recyclerView3.adapter = adapterRomance
+        binding.recyclerView.adapter = bookAdapterList[0]
+        binding.recyclerView2.adapter = bookAdapterList[1]
+        binding.recyclerView3.adapter = bookAdapterList[2]
+        binding.recyclerView4.adapter = bookAdapterList[3]
+        binding.recyclerView5.adapter = bookAdapterList[4]
+        binding.recyclerView6.adapter = bookAdapterList[5]
+        binding.recyclerView7.adapter = bookAdapterList[6]
         binding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         binding.recyclerView2.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         binding.recyclerView3.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.recyclerView4.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.recyclerView5.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.recyclerView6.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.recyclerView7.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
+
+        searchBook("+subject:Fiction", bookAdapterList[0])
+        searchBook("+subject:Science+fiction", bookAdapterList[1])
+        searchBook("+subject:Fantasy", bookAdapterList[2])
+        searchBook("+subject:Romance", bookAdapterList[3])
+        searchBook("+subject:History", bookAdapterList[4])
+        searchBook("+subject:Thriller", bookAdapterList[5])
+        searchBook("+subject:Mystery", bookAdapterList[6])
     }
 
-    fun searchBook(query: String){
+    fun searchBook(query: String, adapter: BookAdapter){
         try {
             CoroutineScope(Dispatchers.IO).launch {
                 val service = BookService.getInstance()
                 //val response = service.findBookbyName("$query+inauthor:$query")
                 val response = service.findBookbyName(query)
-                bookList = response.items
+                val categoryList = response.items
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    //adapter.updateItems(bookList)
+                    adapter.updateItems(categoryList)
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun onBookClicked(position: Int, adapterIndex: Int){
+        val selectedBook = bookAdapterList[adapterIndex].getItem(position)
+        val intent = Intent(this, BookDetailActivity::class.java)
+            intent.putExtra(BookDetailActivity.BOOK_ID, selectedBook.apiId)
+        startActivity(intent)
     }
 }
