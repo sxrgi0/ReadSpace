@@ -18,6 +18,7 @@ import com.example.readspace.data.Book
 import com.example.readspace.adapters.BookAdapter
 import com.example.readspace.utils.BookService
 import com.example.readspace.R
+import com.example.readspace.data.BookEntity
 import com.example.readspace.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     val searchAdapter = BookAdapter(emptyList(), BookAdapter.VIEW_TYPE_DETAIL) { position -> onBookClicked(position) }
 
+    var bookEntity: BookEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +95,8 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }*/
 
+
+
     fun searchBook(query: String, adapter: BookAdapter) {
         try {
             CoroutineScope(Dispatchers.IO).launch {
@@ -123,6 +127,7 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(BookDetailActivity.BOOK_ID, selectedBook.apiId)
         startActivity(intent)
     }
+
 
     fun setupRecyclerView() {
         val recyclerView = listOf(

@@ -42,8 +42,7 @@
                 app:chipIcon="@drawable/ic_library_add"
                 app:ensureMinTouchTargetSize="true"
                 android:layout_gravity="bottom|end"
-                android:layout_marginEnd="8dp"
-                android:clickable="false"/>
+                android:layout_marginEnd="8dp"/>
 
         </androidx.cardview.widget.CardView>
 

@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -44,6 +45,8 @@ class BookDetailActivity : AppCompatActivity() {
     lateinit var session: SessionManager
 
     var isRated = false
+
+    var status = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,9 +87,22 @@ class BookDetailActivity : AppCompatActivity() {
 
         binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
             if (fromUser) {
-                session.setRating(rating)
+                session.setRating(bookEntity!!.apiId, rating)
                 isRated = true
             }
+        }
+
+        binding.statusChip.setOnClickListener {
+            if(bookEntity?.status == "Finished"){
+                binding.ratingBar.isVisible = false
+                binding.ratingBar.rating = 0F
+            }
+
+            session.removeRating(bookEntity!!.apiId)
+            bookDAO.delete(bookEntity!!)
+            bookEntity = null
+
+            loadStatus()
         }
     }
 
@@ -97,7 +113,7 @@ class BookDetailActivity : AppCompatActivity() {
         if (bookEntity?.status == "Finished") {
             binding.ratingBar.isVisible = true
 
-            val savedRating = session.getRating()
+            val savedRating = session.getRating(bookEntity!!.apiId)
             binding.ratingBar.rating = savedRating
             isRated = savedRating > 0F
 
@@ -175,12 +191,24 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     fun loadStatus() {
+
+        val icon = when(bookEntity?.status){
+            "Want to read" -> R.drawable.ic_status_want_to_read
+            "Reading" -> R.drawable.ic_status_reading
+            "Finished" -> R.drawable.ic_status_finished
+            "Not finished" -> R.drawable.ic_status_not_finished
+            else -> R.drawable.ic_library_add
+        }
+
         if (bookEntity == null) {
             binding.statusChip.isVisible = false
         } else {
             binding.statusChip.isVisible = true
             binding.statusChip.text = bookEntity!!.status
+            binding.statusChip.setChipIconResource(icon)
         }
+
+
     }
 
     fun showSaveStatus(){
@@ -195,14 +223,16 @@ class BookDetailActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Add to your library")
             .setPositiveButton(android.R.string.ok) { dialog, which ->
-                var status = ""
                 when(checkedItems){
                     2->{
                         // Añadir el libro a Finished en la base de datos
                         status = "Finished"
                         binding.ratingBar.isVisible = true
                     }
-                    else -> status = items[checkedItems]
+                    else -> {
+                        status = items[checkedItems]
+                        binding.ratingBar.isVisible = false
+                    }
 
                 }
 

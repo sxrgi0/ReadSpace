@@ -1,11 +1,14 @@
 package com.example.readspace.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.readspace.R
 import com.example.readspace.data.Book
+import com.example.readspace.data.BookEntity
 import com.example.readspace.databinding.ItemBookBinding
 import com.example.readspace.databinding.ItemBookDetailBinding
 import com.squareup.picasso.Picasso
@@ -20,6 +23,8 @@ class BookAdapter(
            const val VIEW_TYPE_SIMPLE = 0
            const val VIEW_TYPE_DETAIL = 1
        }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (this.viewType == VIEW_TYPE_SIMPLE) {
@@ -57,70 +62,74 @@ class BookAdapter(
         this.items = items
         notifyDataSetChanged()
     }
-}
 
-class BookViewHolder(val binding: ItemBookBinding) : ViewHolder(binding.root) {
 
-    fun render(book: Book) {
+    inner class BookViewHolder(val binding: ItemBookBinding) : ViewHolder(binding.root) {
 
-        if (book.volumeInfo.imageLinks?.thumbnail != null) {
-            Picasso.get()
-                .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
-                .into(binding.coverImageView)
-        } else {
-            Picasso.get()
-                .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
-                .placeholder(R.drawable.ic_image_error)
-                .into(binding.coverImageView)
+        fun render(book: Book) {
 
-        }
+            if (book.volumeInfo.imageLinks?.thumbnail != null) {
+                Picasso.get()
+                    .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
+                    .into(binding.coverImageView)
+            } else {
+                Picasso.get()
+                    .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
+                    .placeholder(R.drawable.ic_image_error)
+                    .into(binding.coverImageView)
 
-    }
-
-}
-
-class BookDetailViewHolder(val binding: ItemBookDetailBinding) : ViewHolder(binding.root) {
-
-    fun render(book: Book) {
-
-        if(book.volumeInfo.description != null){
-            binding.descriptionTextView.text = book.volumeInfo.description
-        } else{
-            binding.descriptionTextView.text = "No description"
-        }
-
-        if(book.volumeInfo.title != null){
-            binding.titleTextView.text = book.volumeInfo.title
-        } else{
-            binding.titleTextView.text = "No data"
-        }
-
-        if(book.volumeInfo.authors != null){
-            binding.authorsTextView.text = book.getAuthors()
-        } else{
-            binding.authorsTextView.text = "Unknown"
-        }
-
-        if (book.volumeInfo.averageRating != null){
-            binding.ratingBar.rating = book.volumeInfo.averageRating
-            binding.ratingTextView.text = "${book.volumeInfo.averageRating}/5"
-        } else {
-            binding.ratingBar.rating = 0F
-            binding.ratingTextView.text = "0/5"
-        }
-
-        if (book.volumeInfo.imageLinks?.thumbnail != null) {
-            Picasso.get()
-                .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
-                .into(binding.coverImageView)
-        } else {
-            Picasso.get()
-                .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
-                .placeholder(R.drawable.ic_image_error)
-                .into(binding.coverImageView)
+            }
 
         }
 
     }
 
+    inner class BookDetailViewHolder(val binding: ItemBookDetailBinding) : ViewHolder(binding.root) {
+
+        fun render(book: Book) {
+
+
+            if(book.volumeInfo.description != null){
+                binding.descriptionTextView.text = book.volumeInfo.description
+            } else{
+                binding.descriptionTextView.text = "No description"
+            }
+
+            if(book.volumeInfo.title != null){
+                binding.titleTextView.text = book.volumeInfo.title
+            } else{
+                binding.titleTextView.text = "No data"
+            }
+
+            if(book.volumeInfo.authors != null){
+                binding.authorsTextView.text = book.getAuthors()
+            } else{
+                binding.authorsTextView.text = "Unknown"
+            }
+
+            if (book.volumeInfo.averageRating != null){
+                binding.ratingBar.rating = book.volumeInfo.averageRating
+                binding.ratingTextView.text = "${book.volumeInfo.averageRating}/5"
+            } else {
+                binding.ratingBar.rating = 0F
+                binding.ratingTextView.text = "0/5"
+            }
+
+            if (book.volumeInfo.imageLinks?.thumbnail != null) {
+                Picasso.get()
+                    .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
+                    .into(binding.coverImageView)
+            } else {
+                Picasso.get()
+                    .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
+                    .placeholder(R.drawable.ic_image_error)
+                    .into(binding.coverImageView)
+
+            }
+
+
+
+        }
+
+    }
 }
