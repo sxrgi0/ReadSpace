@@ -3,6 +3,7 @@ package com.example.readspace.activities
 import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.text.Html
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -62,6 +63,26 @@ class BookDetailActivity : AppCompatActivity() {
             showSaveStatus()
         }
 
+        setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                finish()
+                return true
+            } else -> {
+                 return super.onOptionsItemSelected(item)
+            }
+        }
+
     }
 
     fun getBookId(id: String){
@@ -109,6 +130,12 @@ class BookDetailActivity : AppCompatActivity() {
             binding.descriptionTextView.text = Html.fromHtml(book.volumeInfo.description, 0)
         } else{
             binding.descriptionTextView.text = "No data"
+        }
+
+        supportActionBar?.apply {
+            title = book.volumeInfo.title
+            subtitle = book.getAuthors()
+            setDisplayShowTitleEnabled(true)
         }
     }
 
