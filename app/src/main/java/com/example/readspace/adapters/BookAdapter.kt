@@ -25,7 +25,6 @@ class BookAdapter(
        }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (this.viewType == VIEW_TYPE_SIMPLE) {
             val binding =

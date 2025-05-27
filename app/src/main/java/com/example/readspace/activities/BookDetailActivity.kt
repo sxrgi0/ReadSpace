@@ -93,16 +93,7 @@ class BookDetailActivity : AppCompatActivity() {
         }
 
         binding.statusChip.setOnClickListener {
-            if(bookEntity?.status == "Finished"){
-                binding.ratingBar.isVisible = false
-                binding.ratingBar.rating = 0F
-            }
-
-            session.removeRating(bookEntity!!.apiId)
-            bookDAO.delete(bookEntity!!)
-            bookEntity = null
-
-            loadStatus()
+            deleteStatus()
         }
     }
 
@@ -209,6 +200,28 @@ class BookDetailActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    fun deleteStatus(){
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Do you want to delete the book from your library?")
+            .setPositiveButton(android.R.string.ok){ dialog, which ->
+                if(bookEntity?.status == "Finished"){
+                    binding.ratingBar.isVisible = false
+                    binding.ratingBar.rating = 0F
+                }
+
+                session.removeRating(bookEntity!!.apiId)
+                bookDAO.delete(bookEntity!!)
+                bookEntity = null
+
+                loadStatus()
+
+            }
+            .setCancelable(false)
+            .setNegativeButton(android.R.string.cancel, null)
+            .setIcon(R.drawable.ic_library_add)
+            .show()
     }
 
     fun showSaveStatus(){
