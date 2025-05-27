@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     val searchAdapter = BookAdapter(emptyList(), BookAdapter.VIEW_TYPE_DETAIL) { position -> onBookClicked(position) }
 
-    var bookEntity: BookEntity? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -75,27 +73,6 @@ class MainActivity : AppCompatActivity() {
 //        searchBook("+subject:Mystery", bookAdapterList[6])
 //        searchBook("+subject:Horror", bookAdapterList[7])
     }
-
-    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.activity_main_menu, menu)
-
-        val menuItem = menu.findItem(R.id.menu_search)
-        val searchView = menuItem.actionView as SearchView
-
-        searchView.setOnQueryTextListener(object : OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-
-        })
-        return super.onCreateOptionsMenu(menu)
-    }*/
-
-
 
     fun searchBook(query: String, adapter: BookAdapter) {
         try {
