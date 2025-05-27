@@ -1,8 +1,10 @@
 package com.example.readspace.activities
 
 import android.icu.text.Transliterator.Position
+import android.media.Rating
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +18,7 @@ import com.example.readspace.data.BookDAO
 import com.example.readspace.data.BookEntity
 import com.example.readspace.databinding.ActivityBookDetailBinding
 import com.example.readspace.utils.BookService
+import com.example.readspace.utils.SessionManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -38,6 +41,10 @@ class BookDetailActivity : AppCompatActivity() {
 
     lateinit var bookDAO: BookDAO
 
+    lateinit var session: SessionManager
+
+    var isRated = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -50,7 +57,11 @@ class BookDetailActivity : AppCompatActivity() {
             insets
         }
 
+        session = SessionManager(this)
+
         bookDAO = BookDAO(this)
+
+//        isRated = session.getRating() == binding.ratingBar.rating
 
         val id = intent.getStringExtra(BOOK_ID)!!
         getBookId(id)
@@ -71,6 +82,30 @@ class BookDetailActivity : AppCompatActivity() {
             setDisplayShowHomeEnabled(true)
         }
 
+        binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            if (fromUser) {
+                session.setRating(rating)
+                isRated = true
+            }
+        }
+    }
+
+
+
+    override fun onResume() {
+
+        if (bookEntity?.status == "Finished") {
+            binding.ratingBar.isVisible = true
+
+            val savedRating = session.getRating()
+            binding.ratingBar.rating = savedRating
+            isRated = savedRating > 0F
+
+        } else {
+            binding.ratingBar.isVisible = false
+        }
+
+        super.onResume()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
