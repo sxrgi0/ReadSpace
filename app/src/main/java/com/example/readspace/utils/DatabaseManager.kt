@@ -9,7 +9,7 @@ class DatabaseManager(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
         const val DATABASE_NAME = "ReadSpace.db"
 
         private const val SQL_CREATE_BOOK =
@@ -19,7 +19,9 @@ class DatabaseManager(context: Context) :
                     "${BookEntity.COLUMN_NAME_TITLE} TEXT, " +
                     "${BookEntity.COLUMN_NAME_AUTHORS} TEXT, " +
                     "${BookEntity.COLUMN_NAME_THUMBNAIL} TEXT, " +
-                    "${BookEntity.COLUMN_NAME_STATUS} TEXT)"
+                    "${BookEntity.COLUMN_NAME_STATUS} TEXT, " +
+                    "${BookEntity.COLUMN_NAME_DESCRIPTION} TEXT, " +
+                    "${BookEntity.COLUMN_NAME_AVERAGERATING} REAL )"
 
         private const val SQL_DELETE_BOOK = "DROP TABLE IF EXISTS ${BookEntity.TABLE_NAME}"
     }

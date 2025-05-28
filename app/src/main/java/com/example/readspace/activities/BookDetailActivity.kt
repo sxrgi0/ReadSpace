@@ -253,7 +253,7 @@ class BookDetailActivity : AppCompatActivity() {
                     bookEntity!!.status = status
                     bookDAO.update(bookEntity!!)
                 } else {
-                    bookEntity = BookEntity(-1, book.apiId, book.volumeInfo.title, book.getAuthors(), book.volumeInfo.imageLinks?.thumbnail, status)
+                    bookEntity = BookEntity(-1, book.apiId, book.volumeInfo.title, book.getAuthors(), book.volumeInfo.imageLinks?.thumbnail, status, book.volumeInfo.description, book.volumeInfo.averageRating)
                     bookDAO.insert(bookEntity!!)
                 }
 

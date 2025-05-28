@@ -38,7 +38,9 @@ data class BookEntity(
     val title: String,
     val authors: String,
     val thumbnail: String?,
-    var status: String
+    var status: String,
+    var description: String,
+    var averageRating: Float?
 ) {
     companion object{
         const val TABLE_NAME = "Books"
@@ -48,5 +50,7 @@ data class BookEntity(
         const val COLUMN_NAME_AUTHORS = "authors"
         const val COLUMN_NAME_THUMBNAIL = "thumbnail"
         const val COLUMN_NAME_STATUS = "status"
+        const val COLUMN_NAME_DESCRIPTION = "description"
+        const val COLUMN_NAME_AVERAGERATING = "rating"
     }
 }

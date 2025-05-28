@@ -70,13 +70,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         searchBook("+subject:Fiction", bookAdapterList[0])
-//        searchBook("+subject:Science+fiction", bookAdapterList[1])
-//        searchBook("+subject:Fantasy", bookAdapterList[2])
-//        searchBook("+subject:Romance", bookAdapterList[3])
-//        searchBook("+subject:History", bookAdapterList[4])
-//        searchBook("+subject:Thriller", bookAdapterList[5])
-//        searchBook("+subject:Mystery", bookAdapterList[6])
-//        searchBook("+subject:Horror", bookAdapterList[7])
+        searchBook("+subject:Science+fiction", bookAdapterList[1])
+        searchBook("+subject:Fantasy", bookAdapterList[2])
+        searchBook("+subject:Romance", bookAdapterList[3])
+        searchBook("+subject:History", bookAdapterList[4])
+        searchBook("+subject:Thriller", bookAdapterList[5])
+        searchBook("+subject:Mystery", bookAdapterList[6])
+        searchBook("+subject:Horror", bookAdapterList[7])
     }
 
     override fun onResume() {

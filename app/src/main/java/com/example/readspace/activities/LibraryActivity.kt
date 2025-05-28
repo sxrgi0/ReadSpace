@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readspace.R
 import com.example.readspace.adapters.BookAdapter
+import com.example.readspace.adapters.MyBooksAdapter
 import com.example.readspace.data.Book
 import com.example.readspace.data.BookDAO
 import com.example.readspace.data.BookEntity
@@ -23,11 +24,13 @@ class LibraryActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLibraryBinding
 
-    lateinit var bookList: Book
+    var myBooksList: List<BookEntity> = emptyList()
     var bookEntity: BookEntity? = null
     lateinit var bookDAO: BookDAO
 
-    val searchAdapter = BookAdapter(emptyList(), BookAdapter.VIEW_TYPE_DETAIL_V2) { position -> onBookClicked(position) }
+    val adapter = MyBooksAdapter(emptyList()) { position -> onBookClicked(position) }
+
+    var currentStatus = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,30 +46,35 @@ class LibraryActivity : AppCompatActivity() {
 
         bookDAO = BookDAO(this)
 
-        binding.recyclerView.adapter = searchAdapter
+        binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        loadBooks()
 
         binding.tabBar.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 // Handle tab select
-                when(binding.tabBar.selectedTabPosition){
+                currentStatus = when(binding.tabBar.selectedTabPosition){
                     0 -> { // ALL
-
+                        ""
                     }
                     1 -> { // WANT TO READ
-
+                        "Want to read"
                     }
                     2 -> { // READING
-
+                        "Reading"
                     }
                     3 -> { // FINISHED
-
+                        "Finished"
                     }
                     4 -> { // NOT FINISHED
-
+                        "Not finished"
                     }
+                    else -> ""
                 }
+
+                loadBooks()
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -99,11 +107,22 @@ class LibraryActivity : AppCompatActivity() {
     }
 
     fun onBookClicked(position: Int) {
-        val selectedBook = searchAdapter.getItem(position)
+        val selectedBook = adapter.items[position]
         val intent = Intent(this, BookDetailActivity::class.java)
         intent.putExtra(BookDetailActivity.BOOK_ID, selectedBook.apiId)
         startActivity(intent)
     }
 
+    private fun loadBooks() {
+        val books = if (currentStatus.isEmpty()) {
+            bookDAO.findAllWithStatus() // Si no hay estado seleccionado, mostrar todos los libros
+        } else {
+            bookDAO.findByStatus(currentStatus) // Filtrar por estado
+        }
+
+        // Actualizar el adaptador con la lista de libros obtenida
+        adapter.items = books
+        adapter.notifyDataSetChanged()
+    }
 
 }

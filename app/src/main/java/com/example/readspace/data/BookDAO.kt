@@ -31,6 +31,8 @@ class BookDAO(private val context: Context) {
                 put(BookEntity.COLUMN_NAME_AUTHORS, bookEntity.authors)
                 put(BookEntity.COLUMN_NAME_THUMBNAIL, bookEntity.thumbnail)
                 put(BookEntity.COLUMN_NAME_STATUS, bookEntity.status)
+                put(BookEntity.COLUMN_NAME_DESCRIPTION, bookEntity.description)
+                put(BookEntity.COLUMN_NAME_AVERAGERATING, bookEntity.averageRating)
             }
 
             // Insert the new row, returning the primary key value of the new row
@@ -56,6 +58,8 @@ class BookDAO(private val context: Context) {
                 put(BookEntity.COLUMN_NAME_AUTHORS, bookEntity.authors)
                 put(BookEntity.COLUMN_NAME_THUMBNAIL, bookEntity.thumbnail)
                 put(BookEntity.COLUMN_NAME_STATUS, bookEntity.status)
+                put(BookEntity.COLUMN_NAME_DESCRIPTION, bookEntity.description)
+                put(BookEntity.COLUMN_NAME_AVERAGERATING, bookEntity.averageRating)
             }
 
             // Which row to update, based on the id
@@ -103,7 +107,9 @@ class BookDAO(private val context: Context) {
                 BookEntity.COLUMN_NAME_TITLE,
                 BookEntity.COLUMN_NAME_AUTHORS,
                 BookEntity.COLUMN_NAME_THUMBNAIL,
-                BookEntity.COLUMN_NAME_STATUS
+                BookEntity.COLUMN_NAME_STATUS,
+                BookEntity.COLUMN_NAME_DESCRIPTION,
+                BookEntity.COLUMN_NAME_AVERAGERATING
             )
 
             // Filter results WHERE "id" = 'bookEntity.id'
@@ -126,8 +132,10 @@ class BookDAO(private val context: Context) {
                 val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
                 val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
                 val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+                val description = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_DESCRIPTION))
+                val rating = cursor.getFloat(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AVERAGERATING))
 
-                bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status)
+                bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status, description, rating)
             }
 
             cursor.close()
@@ -154,7 +162,9 @@ class BookDAO(private val context: Context) {
                 BookEntity.COLUMN_NAME_TITLE,
                 BookEntity.COLUMN_NAME_AUTHORS,
                 BookEntity.COLUMN_NAME_THUMBNAIL,
-                BookEntity.COLUMN_NAME_STATUS
+                BookEntity.COLUMN_NAME_STATUS,
+                BookEntity.COLUMN_NAME_DESCRIPTION,
+                BookEntity.COLUMN_NAME_AVERAGERATING
             )
 
             // Filter results WHERE "id" = 'bookEntity.id'
@@ -177,8 +187,10 @@ class BookDAO(private val context: Context) {
                 val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
                 val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
                 val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+                val description = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_DESCRIPTION))
+                val rating = cursor.getFloat(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AVERAGERATING))
 
-                bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status)
+                bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status, description, rating)
             }
 
             cursor.close()
@@ -205,7 +217,9 @@ class BookDAO(private val context: Context) {
                 BookEntity.COLUMN_NAME_TITLE,
                 BookEntity.COLUMN_NAME_AUTHORS,
                 BookEntity.COLUMN_NAME_THUMBNAIL,
-                BookEntity.COLUMN_NAME_STATUS
+                BookEntity.COLUMN_NAME_STATUS,
+                BookEntity.COLUMN_NAME_DESCRIPTION,
+                BookEntity.COLUMN_NAME_AVERAGERATING
             )
 
             // Filtramos solo los libros donde 'status' no sea null ni vacío
@@ -229,8 +243,10 @@ class BookDAO(private val context: Context) {
                 val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
                 val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
                 val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+                val description = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_DESCRIPTION))
+                val rating = cursor.getFloat(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AVERAGERATING))
 
-                val bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status)
+                val bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status, description, rating)
                 bookList.add(bookEntity)
             }
 
@@ -245,7 +261,7 @@ class BookDAO(private val context: Context) {
     }
 
 //  Obtener todos los registros que tengan un 'status' X
-    fun findByStatus(status: String): List<BookEntity?> {
+    fun findByStatus(status: String): List<BookEntity> {
         open()
 
         val bookList = mutableListOf<BookEntity>()
@@ -258,7 +274,9 @@ class BookDAO(private val context: Context) {
                 BookEntity.COLUMN_NAME_TITLE,
                 BookEntity.COLUMN_NAME_AUTHORS,
                 BookEntity.COLUMN_NAME_THUMBNAIL,
-                BookEntity.COLUMN_NAME_STATUS
+                BookEntity.COLUMN_NAME_STATUS,
+                BookEntity.COLUMN_NAME_DESCRIPTION,
+                BookEntity.COLUMN_NAME_AVERAGERATING
             )
 
             // Filter results WHERE "status" = 'bookEntity.status'
@@ -282,8 +300,10 @@ class BookDAO(private val context: Context) {
                 val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
                 val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
                 val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+                val description = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_DESCRIPTION))
+                val rating = cursor.getFloat(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AVERAGERATING))
 
-                val book = BookEntity(id, apiId, title, authors, thumbnail, status)
+                val book = BookEntity(id, apiId, title, authors, thumbnail, status, description, rating)
                 bookList.add(book)
             }
 
@@ -311,7 +331,9 @@ class BookDAO(private val context: Context) {
                 BookEntity.COLUMN_NAME_TITLE,
                 BookEntity.COLUMN_NAME_AUTHORS,
                 BookEntity.COLUMN_NAME_THUMBNAIL,
-                BookEntity.COLUMN_NAME_STATUS
+                BookEntity.COLUMN_NAME_STATUS,
+                BookEntity.COLUMN_NAME_DESCRIPTION,
+                BookEntity.COLUMN_NAME_AVERAGERATING
             )
 
             // Filter results WHERE "id" = 'bookEntity.id'
@@ -334,8 +356,10 @@ class BookDAO(private val context: Context) {
                 val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
                 val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
                 val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+                val description = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_DESCRIPTION))
+                val rating = cursor.getFloat(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AVERAGERATING))
 
-                val bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status)
+                val bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status, description, rating)
                 bookList.add(bookEntity)
             }
 
@@ -357,7 +381,9 @@ class BookDAO(private val context: Context) {
             title = book.volumeInfo.title,
             authors = book.volumeInfo.authors?.joinToString(", ") ?: "Unknown",
             thumbnail = book.volumeInfo.imageLinks?.thumbnail,
-            status = status
+            status = status,
+            description = book.volumeInfo.description,
+            averageRating = book.volumeInfo.averageRating
         )
     }
 }
