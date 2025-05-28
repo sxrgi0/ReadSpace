@@ -54,7 +54,7 @@ class BookDAO(private val context: Context) {
                 put(BookEntity.COLUMN_NAME_APIID, bookEntity.apiId)
                 put(BookEntity.COLUMN_NAME_TITLE, bookEntity.title)
                 put(BookEntity.COLUMN_NAME_AUTHORS, bookEntity.authors)
-                    put(BookEntity.COLUMN_NAME_THUMBNAIL, bookEntity.authors)
+                put(BookEntity.COLUMN_NAME_THUMBNAIL, bookEntity.thumbnail)
                 put(BookEntity.COLUMN_NAME_STATUS, bookEntity.status)
             }
 
@@ -189,6 +189,58 @@ class BookDAO(private val context: Context) {
         }
 
         return bookEntity
+    }
+
+    fun findByStatus(status: String): List<BookEntity?> {
+        open()
+
+        val bookList = mutableListOf<BookEntity>()
+
+        try {// Define a projection that specifies which columns from the database
+            // you will actually use after this query.
+            val projection = arrayOf(
+                BookEntity.COLUMN_NAME_ID,
+                BookEntity.COLUMN_NAME_APIID,
+                BookEntity.COLUMN_NAME_TITLE,
+                BookEntity.COLUMN_NAME_AUTHORS,
+                BookEntity.COLUMN_NAME_THUMBNAIL,
+                BookEntity.COLUMN_NAME_STATUS
+            )
+
+            // Filter results WHERE "status" = 'bookEntity.status'
+            val selection = "${BookEntity.COLUMN_NAME_STATUS} = ?"
+            val selectionArgs = arrayOf(status)
+
+            val cursor = db.query(
+                BookEntity.TABLE_NAME,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+            )
+
+            while (cursor.moveToNext()) {
+                val id = cursor.getLong(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_ID))
+                val apiId = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_APIID))
+                val title = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_TITLE))
+                val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
+                val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
+                val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+
+                val book = BookEntity(id, apiId, title, authors, thumbnail, status)
+                bookList.add(book)
+            }
+
+            cursor.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            close()
+        }
+
+        return bookList
     }
 
     // Obtener todos los registros

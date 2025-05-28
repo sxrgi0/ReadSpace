@@ -64,6 +64,11 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
 
+        binding.mybooksFAB.setOnClickListener {
+            val intent = Intent(this, LibraryActivity::class.java)
+            startActivity(intent)
+        }
+
         searchBook("+subject:Fiction", bookAdapterList[0])
 //        searchBook("+subject:Science+fiction", bookAdapterList[1])
 //        searchBook("+subject:Fantasy", bookAdapterList[2])

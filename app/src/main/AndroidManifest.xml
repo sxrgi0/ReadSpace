@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ReadSpace"
         tools:targetApi="31">
         <activity
+            android:name=".activities.LibraryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.BookDetailActivity"
             android:exported="false" />
         <activity

@@ -183,4 +183,13 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mybooksFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_menu_book"
+        android:elevation="16dp"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
