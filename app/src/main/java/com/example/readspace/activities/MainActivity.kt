@@ -74,6 +74,11 @@ class MainActivity : AppCompatActivity() {
 //        searchBook("+subject:Horror", bookAdapterList[7])
     }
 
+    override fun onResume() {
+        super.onResume()
+        bookAdapterList.forEach { it.notifyDataSetChanged() }
+    }
+
     fun searchBook(query: String, adapter: BookAdapter) {
         try {
             CoroutineScope(Dispatchers.IO).launch {
