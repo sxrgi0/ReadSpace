@@ -2,12 +2,14 @@ package com.example.readspace.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.readspace.R
 import com.example.readspace.data.Book
+import com.example.readspace.data.BookDAO
 import com.example.readspace.data.BookEntity
 import com.example.readspace.databinding.ItemBookBinding
 import com.example.readspace.databinding.ItemBookDetailBinding
@@ -78,6 +80,25 @@ class BookAdapter(
                     .into(binding.coverImageView)
 
             }
+            loadStatus(book.apiId)
+        }
+
+        fun loadStatus(id: String){
+            val context = itemView.context
+            val book = BookDAO(context).findByApiId(id)
+            if (book != null) {
+                val icon = when(book.status) {
+                    "Finished" -> R.drawable.ic_status_finished
+                    "Reading" -> R.drawable.ic_status_reading
+                    "Want to read" -> R.drawable.ic_status_want_to_read
+                    "Not finished" -> R.drawable.ic_status_not_finished
+                    else -> R.drawable.ic_library_add
+                }
+                binding.statusChip.isVisible = true
+                binding.statusChip.setChipIconResource(icon)
+            } else {
+                binding.statusChip.isVisible = false
+            }
 
         }
 
@@ -131,4 +152,6 @@ class BookAdapter(
         }
 
     }
+
 }
+
