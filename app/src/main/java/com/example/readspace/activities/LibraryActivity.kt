@@ -1,5 +1,6 @@
 package com.example.readspace.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -8,20 +9,25 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readspace.R
+import com.example.readspace.adapters.BookAdapter
 import com.example.readspace.data.Book
 import com.example.readspace.data.BookDAO
 import com.example.readspace.data.BookEntity
 import com.example.readspace.databinding.ActivityLibraryBinding
+import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 
 class LibraryActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLibraryBinding
 
-    lateinit var book: Book
+    lateinit var bookList: Book
     var bookEntity: BookEntity? = null
     lateinit var bookDAO: BookDAO
+
+    val searchAdapter = BookAdapter(emptyList(), BookAdapter.VIEW_TYPE_DETAIL_V2) { position -> onBookClicked(position) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +43,40 @@ class LibraryActivity : AppCompatActivity() {
 
         bookDAO = BookDAO(this)
 
-        val wantToReadImages = listOf(binding.wantToReadImageView1, binding.wantToReadImageView2, binding.wantToReadImageView3)
-        val readingImages = listOf(binding.readingImageView1, binding.readingImageView2, binding.readingImageView3)
-        val finishedImages = listOf(binding.finishedImageView1, binding.finishedImageView2, binding.finishedImageView3)
-        val notFinished = listOf(binding.notFinishedImageView1, binding.notFinishedImageView2, binding.notFinishedImageView3)
-        loadCovers("Want to read", wantToReadImages)
-        loadCovers("Reading", readingImages)
-        loadCovers("Finished", finishedImages)
-        loadCovers("Not finished", notFinished)
+        binding.recyclerView.adapter = searchAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        binding.tabBar.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                // Handle tab select
+                when(binding.tabBar.selectedTabPosition){
+                    0 -> { // ALL
+
+                    }
+                    1 -> { // WANT TO READ
+
+                    }
+                    2 -> { // READING
+
+                    }
+                    3 -> { // FINISHED
+
+                    }
+                    4 -> { // NOT FINISHED
+
+                    }
+                }
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Handle tab reselect
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Handle tab unselect
+            }
+        })
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
@@ -66,25 +98,12 @@ class LibraryActivity : AppCompatActivity() {
 
     }
 
-    fun loadCovers(status: String, imageViews: List<ImageView>){
-        val allBooks = bookDAO.findByStatus(status).take(3)
-
-//        val allBooks = bookDAO.findAll()
-
-        for(i in imageViews.indices){
-            if(i < allBooks.size){
-                val image = allBooks[i]?.thumbnail?.replace("http://", "https://")
-
-                Picasso.get().load(image).into(imageViews[i])
-            } else {
-                imageViews[i].setImageResource(R.drawable.ic_image_error)
-            }
-        }
-
-
-
-        for (book in allBooks) {
-            Log.i("COVER", "Book: ${book?.title}, status: ${book?.status}, thumbnail: ${book?.thumbnail}")
-        }
+    fun onBookClicked(position: Int) {
+        val selectedBook = searchAdapter.getItem(position)
+        val intent = Intent(this, BookDetailActivity::class.java)
+        intent.putExtra(BookDetailActivity.BOOK_ID, selectedBook.apiId)
+        startActivity(intent)
     }
+
+
 }

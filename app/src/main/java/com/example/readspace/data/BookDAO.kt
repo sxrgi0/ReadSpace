@@ -191,6 +191,60 @@ class BookDAO(private val context: Context) {
         return bookEntity
     }
 
+    // Obtener todos los registros que tengan un 'status'
+    fun findAllWithStatus(): List<BookEntity> {
+        open()
+
+        var bookList: MutableList<BookEntity> = mutableListOf()
+
+        try {
+            // Define a projection that specifies which columns from the database
+            val projection = arrayOf(
+                BookEntity.COLUMN_NAME_ID,
+                BookEntity.COLUMN_NAME_APIID,
+                BookEntity.COLUMN_NAME_TITLE,
+                BookEntity.COLUMN_NAME_AUTHORS,
+                BookEntity.COLUMN_NAME_THUMBNAIL,
+                BookEntity.COLUMN_NAME_STATUS
+            )
+
+            // Filtramos solo los libros donde 'status' no sea null ni vacío
+            val selection = "${BookEntity.COLUMN_NAME_STATUS} IS NOT NULL AND ${BookEntity.COLUMN_NAME_STATUS} != ''"
+
+            val cursor = db.query(
+                BookEntity.TABLE_NAME,   // The table to query
+                projection,              // The array of columns to return (pass null to get all)
+                selection,               // The selection condition (only books with a status)
+                null,                    // No selection arguments
+                null,                    // Don't group the rows
+                null,                    // Don't filter by row groups
+                null                     // The sort order
+            )
+
+            // Iteramos sobre el cursor y mapeamos cada fila a un BookEntity
+            while (cursor.moveToNext()) {
+                val id = cursor.getLong(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_ID))
+                val apiId = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_APIID))
+                val title = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_TITLE))
+                val authors = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_AUTHORS))
+                val thumbnail = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_THUMBNAIL))
+                val status = cursor.getString(cursor.getColumnIndexOrThrow(BookEntity.COLUMN_NAME_STATUS))
+
+                val bookEntity = BookEntity(id, apiId, title, authors, thumbnail, status)
+                bookList.add(bookEntity)
+            }
+
+            cursor.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            close()
+        }
+
+        return bookList
+    }
+
+//  Obtener todos los registros que tengan un 'status' X
     fun findByStatus(status: String): List<BookEntity?> {
         open()
 

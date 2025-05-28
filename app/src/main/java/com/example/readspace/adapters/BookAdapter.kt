@@ -24,6 +24,7 @@ class BookAdapter(
        companion object {
            const val VIEW_TYPE_SIMPLE = 0
            const val VIEW_TYPE_DETAIL = 1
+           const val VIEW_TYPE_DETAIL_V2 = 2
        }
 
 
@@ -45,11 +46,13 @@ class BookAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val book = items[position]
+//        val book = items[position]
         if (holder is BookViewHolder) {
             holder.render(book)
         } else if (holder is BookDetailViewHolder) {
             holder.render(book)
         }
+
         holder.itemView.setOnClickListener {
             onItemClick(position)
         }
@@ -108,7 +111,6 @@ class BookAdapter(
 
         fun render(book: Book) {
 
-
             if(book.volumeInfo.description != null){
                 binding.descriptionTextView.text = book.volumeInfo.description
             } else{
@@ -142,6 +144,54 @@ class BookAdapter(
             } else {
                 Picasso.get()
                     .load(book.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://"))
+                    .placeholder(R.drawable.ic_image_error)
+                    .into(binding.coverImageView)
+
+            }
+
+
+
+        }
+
+    }
+
+    inner class BookDetail2ViewHolder(val binding: ItemBookDetailBinding) : ViewHolder(binding.root) {
+
+        fun render(book: BookEntity) {
+
+//            if(book.volumeInfo.description != null){
+//                binding.descriptionTextView.text = book.volumeInfo.description
+//            } else{
+//                binding.descriptionTextView.text = "No description"
+//            }
+
+            if(book.title!= null){
+                binding.titleTextView.text = book.title
+            } else{
+                binding.titleTextView.text = "No data"
+            }
+
+            if(book.authors != null){
+                binding.authorsTextView.text = book.authors
+            } else{
+                binding.authorsTextView.text = "Unknown"
+            }
+
+//            if (book.averageRating != null){
+//                binding.ratingBar.rating = book.volumeInfo.averageRating
+//                binding.ratingTextView.text = "${book.volumeInfo.averageRating}/5"
+//            } else {
+//                binding.ratingBar.rating = 0F
+//                binding.ratingTextView.text = "0/5"
+//            }
+
+            if (book.thumbnail != null) {
+                Picasso.get()
+                    .load(book.thumbnail.replace("http://", "https://"))
+                    .into(binding.coverImageView)
+            } else {
+                Picasso.get()
+                    .load(book.thumbnail?.replace("http://", "https://"))
                     .placeholder(R.drawable.ic_image_error)
                     .into(binding.coverImageView)
 
