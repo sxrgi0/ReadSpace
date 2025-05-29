@@ -39,7 +39,7 @@ data class BookEntity(
     val authors: String,
     val thumbnail: String?,
     var status: String,
-    var description: String,
+    var description: String?,
     var averageRating: Float?
 ) {
     companion object{
