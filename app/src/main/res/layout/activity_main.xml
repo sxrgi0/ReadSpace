@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="128dp"
             app:title="@string/app_name"
-            app:subtitle="Start searching for books"
+            app:subtitle="@string/appbar_subtitle_main"
             app:titleCentered="true"
             app:subtitleCentered="true"
             app:layout_collapseMode="pin"
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Fiction"
+                android:text="@string/fiction_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Science Fiction"
+                android:text="@string/science_fiction_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Fantasy"
+                android:text="@string/fantasy_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Romance"
+                android:text="@string/romance_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="History"
+                android:text="@string/history_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Thriller"
+                android:text="@string/thriller_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Mystery"
+                android:text="@string/mystery_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 
@@ -171,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Horror"
+                android:text="@string/horror_category"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold" />
 

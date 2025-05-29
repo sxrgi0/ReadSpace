@@ -9,7 +9,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
         app:cardCornerRadius="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -68,7 +67,7 @@
                         android:id="@+id/ratingTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rating"
+                        android:text="@string/rating"
                         android:layout_gravity="center"
                         android:layout_marginStart="8dp"/>
 

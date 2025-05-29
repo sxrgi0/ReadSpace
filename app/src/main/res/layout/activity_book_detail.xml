@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             style="@style/Widget.AppCompat.Button.Small"
-            android:text="Save in library"
+            android:text="@string/save_in_library"
             android:layout_marginTop="8dp"/>
 
         <com.google.android.material.divider.MaterialDivider

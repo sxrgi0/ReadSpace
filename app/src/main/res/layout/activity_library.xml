@@ -20,9 +20,9 @@
             app:layout_collapseMode="pin"
             app:layout_scrollFlags="scroll"
             app:popupTheme="@style/ThemeOverlay.Material3"
-            app:subtitle="Find the books you saved!"
+            app:subtitle="@string/appbar_subtitle_library"
             app:subtitleCentered="true"
-            app:title="Your library"
+            app:title="@string/appbar_title_library"
             app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -30,44 +30,47 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable">
 
         <com.google.android.material.tabs.TabItem
             android:tag="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All" />
+            android:text="@string/all" />
 
         <com.google.android.material.tabs.TabItem
             android:tag="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Want to read" />
+            android:text="@string/want_to_read" />
 
         <com.google.android.material.tabs.TabItem
             android:tag="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reading"/>
+            android:text="@string/reading"/>
 
         <com.google.android.material.tabs.TabItem
             android:tag="3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Finished" />
+            android:text="@string/finished" />
 
         <com.google.android.material.tabs.TabItem
             android:tag="4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not finished" />
+            android:text="@string/not_finished" />
 
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingBottom="64dp"
+        android:clipToPadding="false"/>
 
 
 </LinearLayout>
