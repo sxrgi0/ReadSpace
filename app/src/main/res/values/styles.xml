@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextBody">
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="TextBody2">
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:textSize">11dp</item>
+    </style>
+
+    <style name="TextBody_Regular">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="TextTitle_Detail">
+        <item name="fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="TextSubtitle_Detail">
+        <item name="fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="TextSubtitle2_Detail">
+        <item name="fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="TextTitle_Main">
+        <item name="fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="TextTitle2_Main">
+        <item name="fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="TextSubtitle_Main">
+        <item name="fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="TextTitle_item">
+        <item name="fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="TextSubtitle_item">
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="TextSubtitle2_item">
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="TextSubtitle2_item_inverse">
+        <item name="fontFamily">@font/worksans_regular</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/text_inverse</item>
+    </style>
+
+</resources>

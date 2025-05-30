@@ -18,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="128dp"
             app:title="@string/app_name"
+            app:titleTextAppearance="@style/TextTitle_Main"
             app:subtitle="@string/appbar_subtitle_main"
+            app:subtitleTextAppearance="@style/TextSubtitle_Main"
             app:titleCentered="true"
             app:subtitleCentered="true"
             app:layout_collapseMode="pin"
@@ -29,7 +31,8 @@
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search for a book..."
+            android:hint="@string/search_for"
+            android:textAppearance="@style/TextBody_Regular"
             app:layout_collapseMode="pin"
             app:layout_scrollFlags="snap" />
 
@@ -39,7 +42,8 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="Search for a book..."
+        android:hint="@string/search_for"
+        android:textAppearance="@style/TextBody_Regular"
         app:layout_anchor="@id/searchBar">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -68,8 +72,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/fiction_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -83,8 +86,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/science_fiction_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView2"
@@ -98,8 +100,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/fantasy_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView3"
@@ -113,8 +114,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/romance_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView4"
@@ -128,8 +128,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/history_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView5"
@@ -143,8 +142,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/thriller_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView6"
@@ -158,8 +156,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/mystery_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView7"
@@ -172,8 +169,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/horror_category"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textStyle="bold" />
+                android:textAppearance="@style/TextTitle2_Main"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView8"

@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.BookDetailActivity">
+    tools:context=".activities.BookDetailActivity"
+    android:clipToPadding="false"
+    android:paddingBottom="64dp"
+    android:paddingTop="32dp">
 
 
     <LinearLayout
@@ -42,7 +45,8 @@
                 app:chipIcon="@drawable/ic_library_add"
                 app:ensureMinTouchTargetSize="true"
                 android:layout_gravity="bottom|end"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp"
+                android:textAppearance="@style/TextSubtitle_Detail"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -55,16 +59,15 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center_horizontal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-            tools:text="Book Title" />
+            android:textAppearance="@style/TextTitle_Detail"
+            tools:text="Book Title"/>
 
         <TextView
             android:id="@+id/authorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse"
-            android:textSize="12dp"
+            android:textAppearance="@style/TextSubtitle_Detail"
             tools:text="Book Author" />
 
         <com.google.android.material.divider.MaterialDivider
@@ -90,7 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/save_in_library"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextBody"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -106,8 +110,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:padding="16dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-            android:textSize="12dp"
+            android:textAppearance="@style/TextBody_Regular"
             tools:text="Book Description" />
 
         <com.google.android.material.divider.MaterialDivider
@@ -122,8 +125,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:text="More information"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-            android:textSize="12dp" />
+            android:textAppearance="@style/TextSubtitle2_Detail" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -144,8 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Category:"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse"
-                    android:textSize="12dp" />
+                    android:textAppearance="@style/TextBody2"/>
 
                 <TextView
                     android:id="@+id/categoryTextView"
@@ -153,8 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="8dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse"
-                    android:textSize="12dp"
+                    android:textAppearance="@style/TextBody2"
                     tools:text="Fiction"
                     android:gravity="center_horizontal"/>
 
@@ -174,8 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Pages:"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse"
-                    android:textSize="12dp" />
+                    android:textAppearance="@style/TextBody2"/>
 
                 <TextView
                     android:id="@+id/pagecountTextView"
@@ -183,8 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="8dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse"
-                    android:textSize="12dp"
+                    android:textAppearance="@style/TextBody2"
                     tools:text="0" />
 
             </LinearLayout>
